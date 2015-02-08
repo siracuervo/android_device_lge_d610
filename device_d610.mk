@@ -369,15 +369,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.modem.no_wdog_chk=1 \
     persist.call_recording.enabled=1
 
-
-# NFC packages
-PRODUCT_PACKAGES += \
-    NfcNci \
-    Tag \
-    nfc_nci.pn54x.default \
-    com.android.nfc_extras
-
-NFCEE_ACCESS_PATH := device/lge/d610/prebuilt/etc/nfcee_access.xml
+# Root access
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.root_access=3 
 
 # QC time services
 PRODUCT_PROPERTY_OVERRIDES += \
