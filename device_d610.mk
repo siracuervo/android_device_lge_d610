@@ -91,17 +91,17 @@ PRODUCT_COPY_FILES += \
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
-    device/lge/d610/rootdir/fstab.g2m:root/fstab.g2m \
-    device/lge/d610/rootdir/fstab_f2fs.g2m:root/fstab_f2fs.g2m \
+    device/lge/d610/rootdir/fstab.g2mss:root/fstab.g2mss \
+    device/lge/d610/rootdir/fstab_f2fs.g2mss:root/fstab_f2fs.g2mss \
     device/lge/d610/rootdir/init.class_main.sh:root/init.class_main.sh \
     device/lge/d610/rootdir/init.lge.early.rc:root/init.lge.early.rc \
     device/lge/d610/rootdir/init.lge.log.rc:root/init.lge.log.rc \
     device/lge/d610/rootdir/init.lge.rc:root/init.lge.rc \
     device/lge/d610/rootdir/init.mdm.sh:root/init.mdm.sh \
     device/lge/d610/rootdir/init.usb.rc:root/init.usb.rc \
-    device/lge/d610/rootdir/init.g2m.rc:root/init.g2m.rc \
-    device/lge/d610/rootdir/init.g2m.usb.rc:root/init.g2m.usb.rc \
-    device/lge/d610/rootdir/init.g2m_product.rc:root/init.g2m_product.rc \
+    device/lge/d610/rootdir/init.g2mss.rc:root/init.g2mss.rc \
+    device/lge/d610/rootdir/init.g2mss.usb.rc:root/init.g2mss.usb.rc \
+    device/lge/d610/rootdir/init.g2mss_product.rc:root/init.g2mss_product.rc \
     device/lge/d610/rootdir/init.zetaw.bt_vendor.rc:root/init.zetaw.bt_vendor.rc \
     device/lge/d610/rootdir/init.zetaw.class_core.sh:root/init.zetaw.class_core.sh \
     device/lge/d610/rootdir/init.zetaw.cmm.usb.sh:root/init.zetaw.cmm.usb.sh \
@@ -114,8 +114,9 @@ PRODUCT_COPY_FILES += \
     device/lge/d610/rootdir/init.zetaw.syspart_fixup.sh:root/init.zetaw.syspart_fixup.sh \
     device/lge/d610/rootdir/init.zetaw.usb.rc:root/init.zetaw.usb.rc \
     device/lge/d610/rootdir/init.zetaw.usb.sh:root/init.zetaw.usb.sh \
-    device/lge/d610/rootdir/ueventd.g2m.rc:root/ueventd.g2m.rc \
+    device/lge/d610/rootdir/ueventd.g2mss.rc:root/ueventd.g2mss.rc \
     device/lge/d610/rootdir/sbin/bbx:root/sbin/bbx \
+    device/lge/d610/rootdir/sbin/chargerlogo:root/sbin/chargerlogo \
     device/lge/d610/rootdir/fscheck.sh:root/fscheck.sh
 
 # TWRP
