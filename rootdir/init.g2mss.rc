@@ -1,6 +1,6 @@
 import /init.zetaw.rc
-import /init.g2m.usb.rc
-import /init.g2m_product.rc
+import /init.g2mss.usb.rc
+import /init.g2mss_product.rc
 
 on early-init
     mkdir /firmware 0771 system system
@@ -12,7 +12,7 @@ on early-init
 # End Immersion changes
 
 on fs
-    mount_all fstab.g2m
+    mount_all fstab.g2mss
     
     # Executing tune2fs to reserve some region in /data. (40MB)
     exec /system/bin/tune2fs -u system -r 10240 /dev/block/platform/msm_sdcc.1/by-name/userdata
@@ -30,48 +30,30 @@ on fs
     write /proc/sys/vm/min_free_kbytes 5120
 
 # import cne init file
-#on post-fs
-#ys.seong@lge.com 2013.06.30 diganostic mode for recovey
-#     write /sys/class/android_usb/android0/enable 0
-#	     restart adbd
-#		     write /sys/class/android_usb/android0/enable 1
-
+on post-fs
 #    export LD_PRELOAD /vendor/lib/libNimsWrap.so
 
 on post-fs-data
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
 
-# SD ENC
-    setprop ro.ssbd.session /dev/block/platform/msm_sdcc.1/by-name/eksst
-    setprop ro.ssbd.offset 0
+    setprop vold.post_fs_data_done 1
 
 on early-boot
 
 on boot
-#insmod exfat filesystem module by WX-BSP-FileSys@lge.com
     start imsqmidaemon
     insmod /system/lib/modules/adsprpc.ko
-    insmod /system/lib/modules/texfat.ko
-
-#LGE_CHANGE_S, for LP5521 RGB_LED
-	chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/led_current_index
-	chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/led_pattern
-	chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/led_blink
-	chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/R/brightness
-	chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/G/brightness
-	chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/B/brightness
-	chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/R/led_current
-	chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/G/led_current
-	chown system system /sys/devices/f9925000.i2c/i2c-2/2-0032/leds/B/led_current
-#LGE_CHANGE_E, for LP5521 RGB_LED
+    # Enable writing to led blink node from userspace
+    chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/green/blink
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
-    
+
 #LGE_CHANGE_S, restart qcamerasvr when restarting mediaserver and servicemanager, yousung.kang@lge.com
    on property:init.svc.media=restarting
        restart qcamerasvr
@@ -201,6 +183,9 @@ service ppd /system/bin/mm-pp-daemon
 on property:init.svc.surfaceflinger=stopped
     stop ppd
 
+on property:ro.build.type=userdebug
+    setprop sys.coredump 1
+
 #LGE_UPDATE_S LGE_PM_SMPL_COUNT
 service smpl_count /system/bin/smpl_count
     class main
@@ -210,10 +195,10 @@ service smpl_count /system/bin/smpl_count
 
 # LGBACKUP SystemService Daemon
 service bnrd /system/bin/bnrd
-      class main
-      socket bnrd stream 660 root system
-      user root
-      group system radio sdcard_rw
+   class main
+   socket bnrd stream 660 root system
+   user root
+   group system radio sdcard_rw
 
 #Customize booting resources
 service runtime_boot_res /system/vendor/bin/runtime_boot_res.sh
@@ -222,3 +207,9 @@ service runtime_boot_res /system/vendor/bin/runtime_boot_res.sh
 
 on property:ro.build.sbp=1
     start runtime_boot_res
+
+# Define call duration feature
+    on property:ro.lge.callduration=1
+    mkdir /persist-lg/callduration 0770 system radio
+    chown system radio /persist-lg/callduration
+    chmod 0770 /persist-lg/callduration

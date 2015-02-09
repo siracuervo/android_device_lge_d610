@@ -48,12 +48,7 @@ tunnel.decode=true
 tunnel.audiovideo.decode=true
 lpa.decode=false
 lpa.use-stagefright=true
-qcom.hw.aac.encoder=true
-
-# NFC 	
-debug.nfc.fw_download=true	
-debug.nfc.fw_boot_download=false	
-debug.nfc.se=true	
+qcom.hw.aac.encoder=true	
 
 #system props for the MM modules
 
@@ -90,8 +85,6 @@ ro.config.vibrate_type=2
 #// LGE_CHANGE_S, [Net_Patch_0300][CALL_FRW][COMMON], 2012-05-25, Airplane Mode Pop-Up display property value {
 ro.airplane.phoneapp=1
 #// LGE_CHANGE_E, [Net_Patch_0300][CALL_FRW][COMMON], 2012-05-25, Airplane Mode Pop-Up display property value }
-# system prop for NFC DT
-ro.nfc.port=I2C
 
 #
 # ADDITIONAL_BUILD_PROPERTIES
@@ -196,7 +189,6 @@ ro.lge.qslide.max_window=2
 ro.lge.capp_cupss.rootdir=/cust
 persist.data.sbp.update=0
 ro.telephony.default_network=9
-lge.nfc.vendor=nxp
 ro.lge.custLanguageSet=true
 ro.lge.dataprotect=1
 persist.radio.do_not_init_csvt=1

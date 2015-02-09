@@ -33,22 +33,13 @@
 # set persist.sys.usb.config into default mode.
 #
 
-usb_default=`getprop ro.usb.config.default`
 usb_config=`getprop persist.sys.usb.config`
-
-case "$usb_default" in
-	"")
-		usb_default=charge_only
-	;;
-	*);;
-esac
-
 case "$usb_config" in
 	"boot") #factory status, select default
-		setprop persist.sys.usb.config $usb_default
+		setprop persist.sys.usb.config charge_only
 	;;
 	"boot,adb") #factory status, select default
-		setprop persist.sys.usb.config $usb_default,adb
+		setprop persist.sys.usb.config charge_only,adb
 	;;
 	*) ;; #USB persist config exists, do nothing
 esac
